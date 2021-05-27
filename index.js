@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 const { inquirerMenu, 
         inputDepartment,
         inputRole,
+        inputEmployee
 } = require('./src/inquirer');
 
 
@@ -13,7 +14,6 @@ const main = async() => {
         mainOption = await inquirerMenu();
         switch (mainOption) {
             case 'departmentOptions':
-                //Select department's option
                 let departmentOptionSelected=''
                 do {
                     departmentOptionSelected = await inputDepartment();
@@ -28,7 +28,6 @@ const main = async() => {
 
 
             case 'roleOptions':
-                //Select role's option
                 let roleOptionSelected=''
                 do {
                     roleOptionSelected = await inputRole();
@@ -41,7 +40,20 @@ const main = async() => {
         
             break;
 
+            case 'employeeOptions':
+                let employeeOptionSelected=''
+                do {
+                    employeeOptionSelected = await inputEmployee();
+                    // switch (departmentOption) {
+                    //     case 'departmentOptions':
+
+                    //     break;
+                    //}
+                } while( employeeOptionSelected !== 'return' );
         
+            break;
+
+            
         }
 
     } while( mainOption !== 'finish' );

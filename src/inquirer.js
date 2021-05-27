@@ -73,6 +73,28 @@ const roleOptions = [
 }
 ]
 
+const employeeOptions = [    
+  {
+    type: 'list',
+    name: 'employeeOptionSelected',
+    message: 'Employee Menu:',
+    choices: [
+        {
+            value: 'addEmployee',
+            name: 'Add Employee:'
+        },
+        {
+            value: 'viewEmployee',
+            name: 'View Employee:'
+        },
+        {
+          value: 'return',
+          name: 'Return main menu'
+        },
+    
+    ]
+}
+]
 
 const inquirerMenu = async() => {
 
@@ -96,9 +118,16 @@ const inputRole = async() => {
   return roleOptionSelected;
 }
 
+const inputEmployee = async() => {
+   
+  const { employeeOptionSelected } = await inquirer.prompt(employeeOptions);
+
+  return employeeOptionSelected;
+}
 
 module.exports = {
     inquirerMenu,    
     inputDepartment,
-    inputRole
+    inputRole,
+    inputEmployee
 }
