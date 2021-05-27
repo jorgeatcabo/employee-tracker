@@ -7,6 +7,10 @@ const { inquirerMenu,
         inputDepartment
 } = require('./src/inquirer');
 
+const {viewDepartments
+} = require('./src/departmentCRUD');
+
+
 //Classes
 const Department = require('./lib/Department');
 
@@ -28,6 +32,12 @@ const main = async() => {
                             const departmentData = await inputDepartment();
                             let department= new Department(departmentData.departmentname)
                         break;
+
+                        case 'viewDepartments':
+                            //Input for engineer info
+                            viewDepartments()
+                       break;
+
 
                    }
                 } while( departmentOptionSelected !== 'return' );

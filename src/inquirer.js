@@ -38,7 +38,7 @@ const departmentOptions = [
             name: 'Add Department:'
         },
         {
-            value: 'viewDepartment',
+            value: 'viewDepartments',
             name: 'View Departments:'
         },
         {
