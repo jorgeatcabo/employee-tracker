@@ -4,19 +4,19 @@ const mainOptions = [
     {
         type: 'list',
         name: 'mainOptionSelected',
-        message: 'What would you like to do?',
+        message: 'Main menu:',
         choices: [
             {
                 value: 'departmentOptions',
-                name: 'Department\'s options:'
+                name: 'Department menu:'
             },
             {
                 value: 'roleOptions',
-                name: 'Role\'s options:'
+                name: 'Role menu:'
             },
             {
                 value: 'employeeOptions',
-                name: 'Employee\'s options:'
+                name: 'Employee menu:'
             },
             {
               value: 'finish',
@@ -31,7 +31,7 @@ const departmentOptions = [
   {
     type: 'list',
     name: 'departmentOptionSelected',
-    message: 'Department\'s Options:',
+    message: 'Department Menu:',
     choices: [
         {
             value: 'addDepartment',
@@ -43,13 +43,35 @@ const departmentOptions = [
         },
         {
           value: 'return',
-          name: 'Return'
+          name: 'Return main menu'
         },
     
     ]
 }
 ]
 
+const roleOptions = [    
+  {
+    type: 'list',
+    name: 'roleOptionSelected',
+    message: 'Role Menu:',
+    choices: [
+        {
+            value: 'addRole',
+            name: 'Add Role:'
+        },
+        {
+            value: 'viewRole',
+            name: 'View Roles:'
+        },
+        {
+          value: 'return',
+          name: 'Return main menu'
+        },
+    
+    ]
+}
+]
 
 
 const inquirerMenu = async() => {
@@ -67,9 +89,16 @@ const inputDepartment = async() => {
   return departmentOptionSelected;
 }
 
+const inputRole = async() => {
+   
+  const { roleOptionSelected } = await inquirer.prompt(roleOptions);
+
+  return roleOptionSelected;
+}
 
 
 module.exports = {
     inquirerMenu,    
-    inputDepartment
+    inputDepartment,
+    inputRole
 }
