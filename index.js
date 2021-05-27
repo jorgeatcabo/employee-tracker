@@ -7,7 +7,7 @@ const { inquirerMenu,
         inputDepartment
 } = require('./src/inquirer');
 
-const {viewDepartments
+const {readDepartments
 } = require('./src/departmentCRUD');
 
 
@@ -34,8 +34,8 @@ const main = async() => {
                         break;
 
                         case 'viewDepartments':
-                            //Input for engineer info
-                            viewDepartments()
+                            readDepartments()
+                            
                        break;
 
 

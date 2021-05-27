@@ -1,14 +1,16 @@
 const connection=require('./connection')
+const cTable = require('console.table');
 
-const viewDepartments = () => {
+const readDepartments = () => {
   console.log('Selecting all departments...\n');
-  connection.query('SELECT * FROM department', (err, res) => {
+  connection.query('SELECT * FROM department', (err, results) => {
     if (err) throw err;
-    // Log all results of the SELECT statement
-    console.log(res);
-    connection.end();
+    console.table(['id', 'name'],results)    
   });
 };
+
+
+
 
 // Connect to the DB
 connection.connect((err) => {
@@ -17,5 +19,5 @@ connection.connect((err) => {
 });
 
 module.exports = {
-  viewDepartments
+  readDepartments
 }
