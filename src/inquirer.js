@@ -61,7 +61,7 @@ const roleOptions = [
             name: 'Add Role:'
         },
         {
-            value: 'viewRole',
+            value: 'viewRoles',
             name: 'View Roles:'
         },
         {

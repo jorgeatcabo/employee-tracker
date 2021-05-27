@@ -10,9 +10,12 @@ const { inquirerMenu,
 const {readDepartments
 } = require('./src/departmentCRUD');
 
+const {viewRoles
+} = require('./src/roleCRUD');
 
 //Classes
 const Department = require('./lib/Department');
+const Role = require('./lib/Role');
 
 
 const main = async() => {
@@ -21,6 +24,7 @@ const main = async() => {
     do {
         mainOption = await inquirerMenu();
         switch (mainOption) {
+
             case 'departmentOptions':
                 let departmentOptionSelected=''
                 do {
@@ -49,11 +53,21 @@ const main = async() => {
                 let roleOptionSelected=''
                 do {
                     roleOptionSelected = await inputRoleMenu();
-                    // switch (departmentOption) {
-                    //     case 'departmentOptions':
+                    switch (roleOptionSelected) {
+                        
+                        case 'addRole':
+                            //  //Input for engineer info
+                            // const departmentData = await inputDepartment();
+                            // let department= new Department(departmentData.departmentname)
+                        break;
 
-                    //     break;
-                    //}
+                        case 'viewRoles':
+                            viewRoles()
+                            
+                        break;
+
+                   }
+
                 } while( roleOptionSelected !== 'return' );
         
             break;
