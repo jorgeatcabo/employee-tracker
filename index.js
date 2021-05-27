@@ -10,8 +10,11 @@ const { inquirerMenu,
 const {readDepartments
 } = require('./src/departmentCRUD');
 
-const {viewRoles
+const {readRoles
 } = require('./src/roleCRUD');
+
+const {readEmployees
+} = require('./src/employeeCRUD');
 
 //Classes
 const Department = require('./lib/Department');
@@ -62,7 +65,7 @@ const main = async() => {
                         break;
 
                         case 'viewRoles':
-                            viewRoles()
+                            readRoles()
                             
                         break;
 
@@ -76,11 +79,21 @@ const main = async() => {
                 let employeeOptionSelected=''
                 do {
                     employeeOptionSelected = await inputEmployeeMenu();
-                    // switch (departmentOption) {
-                    //     case 'departmentOptions':
+                    switch (employeeOptionSelected) {
+                        
+                        case 'addEmployee':
+                            //  //Input for engineer info
+                            // const departmentData = await inputDepartment();
+                            // let department= new Department(departmentData.departmentname)
+                        break;
 
-                    //     break;
-                    //}
+                        case 'viewEmployees':
+                            readEmployees()
+                            
+                        break;
+
+                   }
+
                 } while( employeeOptionSelected !== 'return' );
         
             break;

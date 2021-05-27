@@ -1,7 +1,7 @@
 const connection=require('./connection')
 const cTable = require('console.table');
 
-const viewRoles = () => {
+const readRoles = () => {
   console.log('Selecting all roles...\n');
   connection.query('SELECT role.id, role.title, role.salary, department.name FROM role inner join department where role.department_id =department.id', (err, results) => {
     if (err) throw err;
@@ -15,5 +15,5 @@ const viewRoles = () => {
 
 
 module.exports = {
-  viewRoles
+  readRoles
 }

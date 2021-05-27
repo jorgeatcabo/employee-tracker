@@ -83,7 +83,7 @@ const employeeOptions = [
             name: 'Add Employee:'
         },
         {
-            value: 'viewEmployee',
+            value: 'viewEmployees',
             name: 'View Employee:'
         },
         {
