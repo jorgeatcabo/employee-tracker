@@ -1,10 +1,14 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 const { inquirerMenu, 
-        inputDepartment,
-        inputRole,
-        inputEmployee
+        inputDepartmentMenu,
+        inputRoleMenu,
+        inputEmployeeMenu,
+        inputDepartment
 } = require('./src/inquirer');
+
+//Classes
+const Department = require('./lib/Department');
 
 
 const main = async() => {
@@ -16,12 +20,16 @@ const main = async() => {
             case 'departmentOptions':
                 let departmentOptionSelected=''
                 do {
-                    departmentOptionSelected = await inputDepartment();
-                    // switch (departmentOption) {
-                    //     case 'departmentOptions':
+                    departmentOptionSelected = await inputDepartmentMenu();
+                    switch (departmentOptionSelected) {
+                        
+                        case 'addDepartment':
+                             //Input for engineer info
+                            const departmentData = await inputDepartment();
+                            let department= new Department(departmentData.departmentname)
+                        break;
 
-                    //     break;
-                    //}
+                   }
                 } while( departmentOptionSelected !== 'return' );
         
             break;
@@ -30,7 +38,7 @@ const main = async() => {
             case 'roleOptions':
                 let roleOptionSelected=''
                 do {
-                    roleOptionSelected = await inputRole();
+                    roleOptionSelected = await inputRoleMenu();
                     // switch (departmentOption) {
                     //     case 'departmentOptions':
 
@@ -43,7 +51,7 @@ const main = async() => {
             case 'employeeOptions':
                 let employeeOptionSelected=''
                 do {
-                    employeeOptionSelected = await inputEmployee();
+                    employeeOptionSelected = await inputEmployeeMenu();
                     // switch (departmentOption) {
                     //     case 'departmentOptions':
 

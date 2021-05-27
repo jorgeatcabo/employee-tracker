@@ -68,7 +68,6 @@ const roleOptions = [
           value: 'return',
           name: 'Return main menu'
         },
-    
     ]
 }
 ]
@@ -88,12 +87,24 @@ const employeeOptions = [
             name: 'View Employee:'
         },
         {
+          value: 'updateRole',
+          name: 'Update employee\'s role:'
+        },
+        {
           value: 'return',
           name: 'Return main menu'
         },
     
     ]
 }
+]
+
+const department = [    
+  {
+      type: 'input',
+      message: 'Department\'s name:',
+      name: 'departmentname',
+    },
 ]
 
 const inquirerMenu = async() => {
@@ -104,30 +115,37 @@ const inquirerMenu = async() => {
 }
 
 
-const inputDepartment = async() => {
+const inputDepartmentMenu = async() => {
    
   const { departmentOptionSelected } = await inquirer.prompt(departmentOptions);
 
   return departmentOptionSelected;
 }
 
-const inputRole = async() => {
+const inputRoleMenu = async() => {
    
   const { roleOptionSelected } = await inquirer.prompt(roleOptions);
 
   return roleOptionSelected;
 }
 
-const inputEmployee = async() => {
+const inputEmployeeMenu = async() => {
    
   const { employeeOptionSelected } = await inquirer.prompt(employeeOptions);
 
   return employeeOptionSelected;
 }
 
+const inputDepartment = async() => {
+  const departmentData = await inquirer.prompt(department);
+  return departmentData;
+}
+
+
 module.exports = {
     inquirerMenu,    
-    inputDepartment,
-    inputRole,
-    inputEmployee
+    inputDepartmentMenu,
+    inputRoleMenu,
+    inputEmployeeMenu,
+    inputDepartment
 }
