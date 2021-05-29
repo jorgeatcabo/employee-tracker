@@ -1,4 +1,6 @@
+
 const inquirer = require('inquirer');
+const {getDepartments}= require('./asyncFunctions')
 
 const mainOptions = [
     {
@@ -102,10 +104,26 @@ const employeeOptions = [
 const department = [    
   {
       type: 'input',
-      message: 'Department\'s name:',
+      message: 'Department name:',
       name: 'departmentname',
     },
 ]
+
+const role = [    
+  {
+    type: 'input',
+    message: 'Role title:',
+    name: 'roletitle',
+  },
+  {
+    type: 'input',
+    message: 'Role salary:',
+    name: 'rolesalary',
+  },
+
+]
+
+
 
 const inquirerMenu = async() => {
 
@@ -141,11 +159,57 @@ const inputDepartment = async() => {
   return departmentData;
 }
 
+const inputRole = async() => {
+  const roleData = await inquirer.prompt(role);
+  return roleData;
+}
+
+const selectDepartment = async() => {
+ const [departments, results]=SyncFunction()
+ 
+  const departmentSelected = await inquirer.prompt(departments);
+  const chosenItem = results.find(
+    (item) => item.name === departmentSelected.choice
+  );
+  return chosenItem.id;
+}
+
+
+
+function SyncFunction(){
+  var departments
+ 
+  //call Fn for db query with callback
+ getDepartments (function(err,deps,results){
+  if (err) {
+      // error handling code goes here
+      console.log("ERROR : ",err);            
+  } else {            
+      departments = [      
+        {
+          name: 'choice',
+          type: 'rawlist',
+          choices:deps,
+          message: 'Department?',
+        },
+      ]   
+      res=results
+  }    
+}
+
+);
+  while(departments === undefined) {
+    require('deasync').sleep(100);
+  }
+  return [departments,res];    
+}
 
 module.exports = {
     inquirerMenu,    
     inputDepartmentMenu,
     inputRoleMenu,
     inputEmployeeMenu,
-    inputDepartment
+    inputDepartment,
+    inputRole,
+    selectDepartment,
 }

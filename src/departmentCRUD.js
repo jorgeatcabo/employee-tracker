@@ -2,14 +2,36 @@ const connection=require('./connection')
 const cTable = require('console.table');
 
 const readDepartments = () => {
-  console.log('Selecting all departments...\n');
+  connection.query('SELECT * FROM department', (err, results) => {
+    if (err) throw err;
+    return results
+  });
+};
+
+const viewDepartments = () => {
   connection.query('SELECT * FROM department', (err, results) => {
     if (err) throw err;
     console.log(" ")
     console.table(results) 
+    // for one field
+    //results[0].name
   });
 };
 
+
+const createDepartment=(department)=>{
+  connection.query('INSERT INTO department SET ?',
+  {
+    name: department.name,
+  }, (err, results) => {
+    if (err) throw err;
+  });
+                            
+
+}
+
 module.exports = {
-  readDepartments
+  viewDepartments,
+  readDepartments,
+  createDepartment
 }

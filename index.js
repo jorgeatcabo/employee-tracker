@@ -1,20 +1,21 @@
-const fs = require('fs');
+const connection=require('./src/connection')
 const inquirer = require('inquirer');
 const { inquirerMenu, 
         inputDepartmentMenu,
         inputRoleMenu,
         inputEmployeeMenu,
-        inputDepartment
+        inputDepartment,
+        inputRole,
+        selectDepartment
 } = require('./src/inquirer');
 
-const {readDepartments
-} = require('./src/departmentCRUD');
+const {viewDepartments,readDepartments, createDepartment} = require('./src/departmentCRUD');
 
-const {readRoles
-} = require('./src/roleCRUD');
+const {readRoles,createRole} = require('./src/roleCRUD');
 
-const {readEmployees
-} = require('./src/employeeCRUD');
+const {readEmployees} = require('./src/employeeCRUD');
+
+const {getColour}= require('./src/asyncFunctions')
 
 //Classes
 const Department = require('./lib/Department');
@@ -35,14 +36,14 @@ const main = async() => {
                     switch (departmentOptionSelected) {
                         
                         case 'addDepartment':
-                             //Input for engineer info
+                             //Input for department info
                             const departmentData = await inputDepartment();
                             let department= new Department(departmentData.departmentname)
+                            createDepartment(department)
                         break;
 
                         case 'viewDepartments':
-                            readDepartments()
-                            
+                            viewDepartments()
                        break;
 
 
@@ -59,14 +60,15 @@ const main = async() => {
                     switch (roleOptionSelected) {
                         
                         case 'addRole':
-                            //  //Input for engineer info
-                            // const departmentData = await inputDepartment();
-                            // let department= new Department(departmentData.departmentname)
+                             //Input for role info
+                             const roleData = await inputRole();
+                             const departmentSelected=await selectDepartment()
+                             let role= new Role(roleData.roletitle,roleData.rolesalary,departmentSelected)
+                             createRole(role)
                         break;
 
                         case 'viewRoles':
                             readRoles()
-                            
                         break;
 
                    }
@@ -104,5 +106,8 @@ const main = async() => {
     } while( mainOption !== 'finish' );
 }
 
-main();
+
+    main();
+
+
 
