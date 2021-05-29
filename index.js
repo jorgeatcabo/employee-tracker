@@ -9,14 +9,15 @@ const { inquirerMenu,
         inputEmployee,
         selectDepartment,
         selectRole,
-        selectManager
+        selectManager,
+        selectEmployee
 } = require('./src/inquirer');
 
 const {viewDepartments, createDepartment} = require('./src/departmentCRUD');
 
 const {readRoles,createRole} = require('./src/roleCRUD');
 
-const {readEmployees,createEmployee} = require('./src/employeeCRUD');
+const {readEmployees,createEmployee,updateEmployee} = require('./src/employeeCRUD');
 
 //Classes
 const Department = require('./lib/Department');
@@ -86,16 +87,24 @@ const main = async() => {
                     switch (employeeOptionSelected) {
                         
                         case 'addEmployee':
-                             //Input for role info
+                             //Input for employee info
                              const employeeData = await inputEmployee();
                              const roleSelected=await selectRole()
-                            const managerSelected=await selectManager()
+                             const managerSelected=await selectManager()
                              let employee= new Employee(employeeData.employeefirstname,employeeData.employeelastname,roleSelected,managerSelected)
                              createEmployee(employee)
                         break;
 
                         case 'viewEmployees':
                             readEmployees()
+                        break;
+
+                        case 'updateRole':
+                            let employeeSelected=await selectEmployee()
+                            employeeSelected= parseInt(employeeSelected)
+                            let employeeRoleSelected=await selectRole()
+                            employeeRoleSelected= parseInt(employeeRoleSelected)
+                            updateEmployee(employeeRoleSelected,employeeSelected)
                             
                         break;
 

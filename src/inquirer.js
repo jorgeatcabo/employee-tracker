@@ -1,6 +1,6 @@
 
 const inquirer = require('inquirer');
-const {getDepartments,getRoles,getManagers}= require('./asyncFunctions')
+const {getDepartments,getRoles,getManagers,getEmployees}= require('./asyncFunctions')
 
 const mainOptions = [
     {
@@ -215,9 +215,19 @@ const selectRole = async() => {
    }
    return chosen
  }
-   
+
+ const selectEmployee = async() => {
+  const [employees, results]=SyncFunction("employee")
+  
+   const employeeSelected = await inquirer.prompt(employees);
+      const chosenItem = results.find(
+        (item) => item.first_name === employeeSelected.choice
+      );
+      return chosenItem.id;
+ }
+
 function SyncFunction(table){
-  var departments,roles,managers
+  var departments,roles,managers,employees
  
   switch (table) {
     case "department":
@@ -294,8 +304,34 @@ function SyncFunction(table){
         return [managers,res];    
   
         break;  
-    
-    }
+
+    case "employee":
+      getEmployees (function(err,emplys,results){
+        if (err) {
+            console.log("ERROR : ",err);            
+        } else {            
+          employees = [      
+              {
+                name: 'choice',
+                type: 'rawlist',
+                choices:emplys,
+                message: 'Employee?',
+              },
+            ]   
+            res=results
+        }    
+      }
+  
+      );
+        while(employees === undefined) {
+          require('deasync').sleep(100);
+        }
+        return [employees,res];    
+  
+        break;  
+
+
+}
       
 }
 
@@ -309,5 +345,6 @@ module.exports = {
     inputEmployee,
     selectDepartment,
     selectRole,
-    selectManager
+    selectManager,
+    selectEmployee
 }

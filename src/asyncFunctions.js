@@ -49,8 +49,24 @@ function getManagers(callback)
 
 }
 
+function getEmployees(callback)
+{
+    connection.query('SELECT * FROM employee', function(err, result)
+    {
+        if (err) 
+            callback(err,null,null);
+        else
+        {
+            let emplys=result.map((item) => item.first_name);
+            callback(null,emplys,result);
+        }
+
+    });
+
+}
  module.exports = {
     getDepartments,
     getRoles,
-    getManagers
+    getManagers,
+    getEmployees
  }  
