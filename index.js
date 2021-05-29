@@ -6,20 +6,23 @@ const { inquirerMenu,
         inputEmployeeMenu,
         inputDepartment,
         inputRole,
-        selectDepartment
+        inputEmployee,
+        selectDepartment,
+        selectRole
 } = require('./src/inquirer');
 
 const {viewDepartments,readDepartments, createDepartment} = require('./src/departmentCRUD');
 
 const {readRoles,createRole} = require('./src/roleCRUD');
 
-const {readEmployees} = require('./src/employeeCRUD');
+const {readEmployees,createEmployee} = require('./src/employeeCRUD');
 
 const {getColour}= require('./src/asyncFunctions')
 
 //Classes
 const Department = require('./lib/Department');
 const Role = require('./lib/Role');
+const Employee = require('./lib/Employee');
 
 
 const main = async() => {
@@ -84,9 +87,11 @@ const main = async() => {
                     switch (employeeOptionSelected) {
                         
                         case 'addEmployee':
-                            //  //Input for engineer info
-                            // const departmentData = await inputDepartment();
-                            // let department= new Department(departmentData.departmentname)
+                             //Input for role info
+                             const employeeData = await inputEmployee();
+                             const roleSelected=await selectRole()
+                             let employee= new Employee(employeeData.employeefirstname,employeeData.employeelastname,roleSelected,null)
+                             createEmployee(employee)
                         break;
 
                         case 'viewEmployees':
@@ -108,6 +113,7 @@ const main = async() => {
 
 
     main();
+
 
 
 

@@ -16,6 +16,22 @@ function getDepartments(callback)
 
 }
 
+function getRoles(callback)
+{
+    connection.query('SELECT * FROM role', function(err, result)
+    {
+        if (err) 
+            callback(err,null,null);
+        else
+        {
+        let rls=result.map((item) => item.title);
+            callback(null,rls,result);
+        }
+
+    });
+
+}
  module.exports = {
-    getDepartments
+    getDepartments,
+    getRoles
  }  

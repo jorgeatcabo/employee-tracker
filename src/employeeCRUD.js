@@ -9,10 +9,21 @@ const readEmployees = () => {
   });
 };
 
-
-
-
+const createEmployee=(employee)=>{
+  connection.query('INSERT INTO employee SET ?',
+        {
+          first_name: employee.first_name,
+          last_name: employee.last_name,
+          role_id: employee.role_id,
+          manager_id: employee.manager_id,
+        },
+        (err) => {
+          if (err) throw err;
+        }
+      );
+}
 
 module.exports = {
-  readEmployees
+  readEmployees,
+  createEmployee
 }

@@ -1,6 +1,6 @@
 
 const inquirer = require('inquirer');
-const {getDepartments}= require('./asyncFunctions')
+const {getDepartments,getRoles}= require('./asyncFunctions')
 
 const mainOptions = [
     {
@@ -123,6 +123,19 @@ const role = [
 
 ]
 
+const employee = [    
+  {
+    type: 'input',
+    message: 'Employee first name:',
+    name: 'employeefirstname',
+  },
+  {
+    type: 'input',
+    message: 'Employee last name:',
+    name: 'employeelastname',
+  },
+
+]
 
 
 const inquirerMenu = async() => {
@@ -164,8 +177,13 @@ const inputRole = async() => {
   return roleData;
 }
 
+const inputEmployee = async() => {
+  const employeeData = await inquirer.prompt(employee);
+  return employeeData;
+}
+
 const selectDepartment = async() => {
- const [departments, results]=SyncFunction()
+ const [departments, results]=SyncFunction("department")
  
   const departmentSelected = await inquirer.prompt(departments);
   const chosenItem = results.find(
@@ -174,34 +192,71 @@ const selectDepartment = async() => {
   return chosenItem.id;
 }
 
+const selectRole = async() => {
+  const [roles, results]=SyncFunction("role")
+  
+   const roleSelected = await inquirer.prompt(roles);
+   const chosenItem = results.find(
+     (item) => item.title === roleSelected.choice
+   );
+   return chosenItem.id;
+ }
 
-
-function SyncFunction(){
+function SyncFunction(table){
   var departments
+  var roles
  
-  //call Fn for db query with callback
- getDepartments (function(err,deps,results){
-  if (err) {
-      // error handling code goes here
-      console.log("ERROR : ",err);            
-  } else {            
-      departments = [      
-        {
-          name: 'choice',
-          type: 'rawlist',
-          choices:deps,
-          message: 'Department?',
-        },
-      ]   
-      res=results
-  }    
-}
+  switch (table) {
+    case "department":
+        getDepartments (function(err,deps,results){
+          if (err) {
+              console.log("ERROR : ",err);            
+          } else {            
+              departments = [      
+                {
+                  name: 'choice',
+                  type: 'rawlist',
+                  choices:deps,
+                  message: 'Department?',
+                },
+              ]   
+              res=results
+          }    
+        }
 
-);
-  while(departments === undefined) {
-    require('deasync').sleep(100);
-  }
-  return [departments,res];    
+        );
+          while(departments === undefined) {
+            require('deasync').sleep(100);
+          }
+          return [departments,res];    
+
+         break;
+  
+         case "role":
+          getRoles (function(err,rls,results){
+            if (err) {
+                console.log("ERROR : ",err);            
+            } else {            
+                roles = [      
+                  {
+                    name: 'choice',
+                    type: 'rawlist',
+                    choices:rls,
+                    message: 'Role?',
+                  },
+                ]   
+                res=results
+            }    
+          }
+  
+          );
+            while(roles === undefined) {
+              require('deasync').sleep(100);
+            }
+            return [roles,res];    
+  
+           break;  }
+
 }
 
 module.exports = {
@@ -211,5 +266,7 @@ module.exports = {
     inputEmployeeMenu,
     inputDepartment,
     inputRole,
+    inputEmployee,
     selectDepartment,
+    selectRole
 }
