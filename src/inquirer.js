@@ -1,6 +1,6 @@
 
 const inquirer = require('inquirer');
-const {getDepartments,getRoles}= require('./asyncFunctions')
+const {getDepartments,getRoles,getManagers}= require('./asyncFunctions')
 
 const mainOptions = [
     {
@@ -202,9 +202,22 @@ const selectRole = async() => {
    return chosenItem.id;
  }
 
+ const selectManager = async() => {
+  const [managers, results]=SyncFunction("manager")
+  
+   const managerSelected = await inquirer.prompt(managers);
+   let chosen=null
+   if (managerSelected.choice!=="None"){
+      const chosenItem = results.find(
+        (item) => item.first_name === managerSelected.choice
+      );
+      chosen= chosenItem.id;
+   }
+   return chosen
+ }
+   
 function SyncFunction(table){
-  var departments
-  var roles
+  var departments,roles,managers
  
   switch (table) {
     case "department":
@@ -232,31 +245,58 @@ function SyncFunction(table){
 
          break;
   
-         case "role":
-          getRoles (function(err,rls,results){
-            if (err) {
-                console.log("ERROR : ",err);            
-            } else {            
-                roles = [      
-                  {
-                    name: 'choice',
-                    type: 'rawlist',
-                    choices:rls,
-                    message: 'Role?',
-                  },
-                ]   
-                res=results
-            }    
-          }
-  
-          );
-            while(roles === undefined) {
-              require('deasync').sleep(100);
-            }
-            return [roles,res];    
-  
-           break;  }
+    case "role":
+    getRoles (function(err,rls,results){
+      if (err) {
+          console.log("ERROR : ",err);            
+      } else {            
+          roles = [      
+            {
+              name: 'choice',
+              type: 'rawlist',
+              choices:rls,
+              message: 'Role?',
+            },
+          ]   
+          res=results
+      }    
+    }
 
+    );
+      while(roles === undefined) {
+        require('deasync').sleep(100);
+      }
+      return [roles,res];    
+
+      break;  
+    
+    case "manager":
+      getManagers (function(err,mngrs,results){
+        if (err) {
+            console.log("ERROR : ",err);            
+        } else {            
+          managers = [      
+              {
+                name: 'choice',
+                type: 'rawlist',
+                choices:mngrs,
+                message: 'Manager?',
+              },
+            ]   
+            res=results
+        }    
+      }
+  
+      );
+        while(managers === undefined) {
+          require('deasync').sleep(100);
+        }
+        return [managers,res];    
+  
+        break;  
+    
+    }
+      
 }
 
 module.exports = {
@@ -268,5 +308,6 @@ module.exports = {
     inputRole,
     inputEmployee,
     selectDepartment,
-    selectRole
+    selectRole,
+    selectManager
 }

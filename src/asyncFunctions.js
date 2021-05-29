@@ -31,7 +31,26 @@ function getRoles(callback)
     });
 
 }
+
+function getManagers(callback)
+{
+    connection.query('SELECT * FROM employee', function(err, result)
+    {
+        if (err) 
+            callback(err,null,null);
+        else
+        {
+        let mngrs=result.map((item) => item.first_name);
+            mngrs.unshift("None")
+            callback(null,mngrs,result);
+        }
+
+    });
+
+}
+
  module.exports = {
     getDepartments,
-    getRoles
+    getRoles,
+    getManagers
  }  

@@ -8,16 +8,15 @@ const { inquirerMenu,
         inputRole,
         inputEmployee,
         selectDepartment,
-        selectRole
+        selectRole,
+        selectManager
 } = require('./src/inquirer');
 
-const {viewDepartments,readDepartments, createDepartment} = require('./src/departmentCRUD');
+const {viewDepartments, createDepartment} = require('./src/departmentCRUD');
 
 const {readRoles,createRole} = require('./src/roleCRUD');
 
 const {readEmployees,createEmployee} = require('./src/employeeCRUD');
-
-const {getColour}= require('./src/asyncFunctions')
 
 //Classes
 const Department = require('./lib/Department');
@@ -90,7 +89,8 @@ const main = async() => {
                              //Input for role info
                              const employeeData = await inputEmployee();
                              const roleSelected=await selectRole()
-                             let employee= new Employee(employeeData.employeefirstname,employeeData.employeelastname,roleSelected,null)
+                            const managerSelected=await selectManager()
+                             let employee= new Employee(employeeData.employeefirstname,employeeData.employeelastname,roleSelected,managerSelected)
                              createEmployee(employee)
                         break;
 
