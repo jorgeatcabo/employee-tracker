@@ -39,9 +39,25 @@ const updateEmployee=(employeeRoleSelected,employeeSelected)=>{
       );
 }
 
+const updateEmployeeManager=(managerSelected,employeeSelected)=>{
+  connection.query('UPDATE employee SET ? WHERE ?',
+        [
+          {
+            manager_id: managerSelected,
+          },
+          {
+            id: employeeSelected,
+          },
+        ],
+        (err) => {
+          if (err) throw err;
+        }
+      );
+}
 
 module.exports = {
   readEmployees,
   createEmployee,
-  updateEmployee
+  updateEmployee,
+  updateEmployeeManager
 }

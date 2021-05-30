@@ -10,14 +10,14 @@ const { inquirerMenu,
         selectDepartment,
         selectRole,
         selectManager,
-        selectEmployee
+        selectEmployee,
 } = require('./src/inquirer');
 
 const {viewDepartments, createDepartment} = require('./src/departmentCRUD');
 
 const {readRoles,createRole} = require('./src/roleCRUD');
 
-const {readEmployees,createEmployee,updateEmployee} = require('./src/employeeCRUD');
+const {readEmployees,createEmployee,updateEmployee,updateEmployeeManager} = require('./src/employeeCRUD');
 
 //Classes
 const Department = require('./lib/Department');
@@ -90,7 +90,7 @@ const main = async() => {
                              //Input for employee info
                              const employeeData = await inputEmployee();
                              const roleSelected=await selectRole()
-                             const managerSelected=await selectManager()
+                             let managerSelected=await selectManager()
                              let employee= new Employee(employeeData.employeefirstname,employeeData.employeelastname,roleSelected,managerSelected)
                              createEmployee(employee)
                         break;
@@ -107,6 +107,15 @@ const main = async() => {
                             updateEmployee(employeeRoleSelected,employeeSelected)
                             
                         break;
+
+                        case 'updateManager':
+                            let employeeSelectedToUpdate=await selectEmployee()
+                            employeeSelectedToUpdate= parseInt(employeeSelectedToUpdate)
+                            let managerSelectedToUpdate=await selectManager()
+                            managerSelectedToUpdate= parseInt(managerSelectedToUpdate)
+                            updateEmployeeManager(managerSelectedToUpdate,employeeSelectedToUpdate)
+                            
+                        break;                       
 
                    }
 

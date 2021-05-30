@@ -93,6 +93,10 @@ const employeeOptions = [
           name: 'Update employee\'s role:'
         },
         {
+          value: 'updateManager',
+          name: 'Update employee\'s manager:'
+        },       
+        {
           value: 'return',
           name: 'Return main menu'
         },
