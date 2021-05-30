@@ -11,7 +11,7 @@ const { inquirerMenu,
         selectRole,
         selectManager,
         selectEmployee,
-        inputManagerMenu
+        inputManagerMenu,
 } = require('./src/inquirer');
 
 const {viewDepartments, createDepartment} = require('./src/departmentCRUD');
@@ -21,6 +21,8 @@ const {readRoles,createRole} = require('./src/roleCRUD');
 const {readEmployees,createEmployee,updateEmployee,updateEmployeeManager} = require('./src/employeeCRUD');
 
 const {viewManagerEmployees} = require('./src/managerCRUD');
+
+const {deleteRow} = require('./src/generalCRUD');
 
 //Classes
 const Department = require('./lib/Department');
@@ -50,7 +52,12 @@ const main = async() => {
 
                         case 'viewDepartments':
                             viewDepartments()
-                       break;
+                        break;
+
+                        case 'deleteDepartment':
+                            let departmentSelectedTodelete=await selectDepartment()
+                            deleteRow('department',departmentSelectedTodelete)
+                        break;                       
 
 
                    }

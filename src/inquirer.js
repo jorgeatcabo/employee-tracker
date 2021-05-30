@@ -48,6 +48,10 @@ const departmentOptions = [
             name: 'View Departments:'
         },
         {
+          value: 'deleteDepartment',
+          name: 'Delete Department:'
+        },
+        {
           value: 'return',
           name: 'Return main menu'
         },
@@ -69,6 +73,10 @@ const roleOptions = [
         {
             value: 'viewRoles',
             name: 'View Roles:'
+        },
+        {
+          value: 'deleteRole',
+          name: 'Delete Role:'
         },
         {
           value: 'return',
@@ -217,8 +225,6 @@ const inputEmployee = async() => {
 }
 
 
-
-
 const selectDepartment = async() => {
  const [departments, results]=SyncFunction("department")
  
@@ -252,6 +258,7 @@ const selectRole = async() => {
    }
    return chosen
  }
+
 
  const selectEmployee = async() => {
   const [employees, results]=SyncFunction("employee")
@@ -384,5 +391,5 @@ module.exports = {
     selectRole,
     selectManager,
     selectEmployee,
-    inputManagerMenu
+    inputManagerMenu,
 }

@@ -49,6 +49,8 @@ function getManagers(callback)
 
 }
 
+
+
 function getEmployees(callback)
 {
     connection.query('SELECT * FROM employee', function(err, result)

@@ -33,5 +33,5 @@ const createDepartment=(department)=>{
 module.exports = {
   viewDepartments,
   readDepartments,
-  createDepartment
+  createDepartment,
 }
