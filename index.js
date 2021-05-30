@@ -11,6 +11,7 @@ const { inquirerMenu,
         selectRole,
         selectManager,
         selectEmployee,
+        inputManagerMenu
 } = require('./src/inquirer');
 
 const {viewDepartments, createDepartment} = require('./src/departmentCRUD');
@@ -18,6 +19,8 @@ const {viewDepartments, createDepartment} = require('./src/departmentCRUD');
 const {readRoles,createRole} = require('./src/roleCRUD');
 
 const {readEmployees,createEmployee,updateEmployee,updateEmployeeManager} = require('./src/employeeCRUD');
+
+const {viewManagerEmployees} = require('./src/managerCRUD');
 
 //Classes
 const Department = require('./lib/Department');
@@ -123,6 +126,24 @@ const main = async() => {
         
             break;
 
+            case 'managerOptions':
+                let managerOptionSelected=''
+                do {
+                    managerOptionSelected = await inputManagerMenu();
+                    switch (managerOptionSelected) {
+                        
+                        case 'viewManagerEmployees':
+                             let managerSelectedToViewEmployees=await selectManager()
+                             viewManagerEmployees(managerSelectedToViewEmployees)
+                             //console.log(managerSelectedToViewEmployees)
+                        break;
+
+                   }
+
+                } while( managerOptionSelected !== 'return' );
+        
+            break;
+
             
         }
 
@@ -130,7 +151,7 @@ const main = async() => {
 }
 
 
-    main();
+main();
 
 
 

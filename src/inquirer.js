@@ -21,6 +21,10 @@ const mainOptions = [
                 name: 'Employee menu:'
             },
             {
+              value: 'managerOptions',
+              name: 'Manager menu:'
+             },
+            {
               value: 'finish',
               name: 'Finish'
             },
@@ -105,6 +109,25 @@ const employeeOptions = [
 }
 ]
 
+const managerOptions = [    
+  {
+    type: 'list',
+    name: 'managerOptionSelected',
+    message: 'Manger Menu:',
+    choices: [
+        {
+            value: 'viewManagerEmployees',
+            name: 'View Manger\'s Employees:'
+        },  
+        {
+          value: 'return',
+          name: 'Return main menu'
+        },
+    
+    ]
+}
+]
+
 const department = [    
   {
       type: 'input',
@@ -171,6 +194,13 @@ const inputEmployeeMenu = async() => {
   return employeeOptionSelected;
 }
 
+const inputManagerMenu = async() => {
+   
+  const { managerOptionSelected } = await inquirer.prompt(managerOptions);
+
+  return managerOptionSelected;
+}
+
 const inputDepartment = async() => {
   const departmentData = await inquirer.prompt(department);
   return departmentData;
@@ -185,6 +215,9 @@ const inputEmployee = async() => {
   const employeeData = await inquirer.prompt(employee);
   return employeeData;
 }
+
+
+
 
 const selectDepartment = async() => {
  const [departments, results]=SyncFunction("department")
@@ -350,5 +383,6 @@ module.exports = {
     selectDepartment,
     selectRole,
     selectManager,
-    selectEmployee
+    selectEmployee,
+    inputManagerMenu
 }
