@@ -2,7 +2,7 @@ const connection=require('./connection')
 const cTable = require('console.table');
 
 const readEmployees = () => {
-  connection.query('SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee inner join role where employee.role_id =role.id', (err, results) => {
+  connection.query('SELECT e.id, e.first_name, e.last_name, role.title,department.name as department, role.salary, m.first_name as manager FROM employee e inner join role ON role.id=e.role_id inner join department ON role.department_id =department.id left join employee m ON m.id =e.manager_id order by e.id', (err, results) => {
     if (err) throw err;
     console.log(" ")
     console.table(results)    
