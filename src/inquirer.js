@@ -102,7 +102,7 @@ const employeeOptions = [
         },
         {
             value: 'viewEmployees',
-            name: 'View Employee:'
+            name: 'View Employees:'
         },
         {
           value: 'updateRole',
