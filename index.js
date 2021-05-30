@@ -84,6 +84,11 @@ const main = async() => {
                             readRoles()
                         break;
 
+                        case 'deleteRole':
+                            let roleSelectedTodelete=await selectRole()
+                            deleteRow('role',roleSelectedTodelete)
+                        break;                       
+
                    }
 
                 } while( roleOptionSelected !== 'return' );
