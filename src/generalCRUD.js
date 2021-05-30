@@ -8,7 +8,17 @@ const deleteRow=(table,departmentSelectedTodelete)=>{
   });
 }
 
+const generateBudget = () => {
+  connection.query('SELECT d.id, d.name, SUM(r.salary) AS Budget FROM department d INNER JOIN role r ON r.department_id= d.id GROUP BY(d.id)', (err, results) => {
+    if (err) throw err;
+    console.log(" ")
+    console.table(results) 
+    // for one field
+    //results[0].name
+  });
+};
 
 module.exports = {
-    deleteRow
+    deleteRow,
+    generateBudget
 }

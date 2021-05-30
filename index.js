@@ -22,7 +22,7 @@ const {readEmployees,createEmployee,updateEmployee,updateEmployeeManager} = requ
 
 const {viewManagerEmployees} = require('./src/managerCRUD');
 
-const {deleteRow} = require('./src/generalCRUD');
+const {deleteRow,generateBudget} = require('./src/generalCRUD');
 
 //Classes
 const Department = require('./lib/Department');
@@ -57,8 +57,11 @@ const main = async() => {
                         case 'deleteDepartment':
                             let departmentSelectedTodelete=await selectDepartment()
                             deleteRow('department',departmentSelectedTodelete)
-                        break;                       
-
+                        break;    
+                        
+                        case 'generateBudget':
+                            generateBudget()
+                        break;
 
                    }
                 } while( departmentOptionSelected !== 'return' );
@@ -130,7 +133,12 @@ const main = async() => {
                             managerSelectedToUpdate= parseInt(managerSelectedToUpdate)
                             updateEmployeeManager(managerSelectedToUpdate,employeeSelectedToUpdate)
                             
-                        break;                       
+                        break;   
+                        
+                        case 'deleteEmployee':
+                            let employeeSelectedTodelete=await selectEmployee()
+                            deleteRow('employee',employeeSelectedTodelete)
+                        break;      
 
                    }
 

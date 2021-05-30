@@ -52,6 +52,10 @@ const departmentOptions = [
           name: 'Delete Department:'
         },
         {
+          value: 'generateBudget',
+          name: 'Generate budget'
+        },
+        {
           value: 'return',
           name: 'Return main menu'
         },
@@ -107,7 +111,11 @@ const employeeOptions = [
         {
           value: 'updateManager',
           name: 'Update employee\'s manager:'
-        },       
+        },
+        {
+          value: 'deleteEmployee',
+          name: 'Delete employee:'
+        },              
         {
           value: 'return',
           name: 'Return main menu'
